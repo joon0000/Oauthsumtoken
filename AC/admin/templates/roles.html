@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Role Information</title>
+</head>
+<body>
+    <h1>Role Information</h1>
+    <table style="width:100%">
+      <tr>
+        <th>ID</th>
+        <th>Name</th> 
+        <th>TTL</th>
+        <th>Permissions</th>
+      </tr>
+      {% for role in roles %}
+      <tr>
+        <td>{{ role.id }}</td>
+        <td>{{ role.name }}</td>
+        <td>{{ role.ttl }}</td>
+        <td>{{ role.permissions }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <p></p>
+    <a href="/role/create">Go to create role</a>
+    <p></p>
+    <a href="/">Back</a>
+</body>
+</html>

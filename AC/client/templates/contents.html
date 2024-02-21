@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resource Owner Password Credentials Client (Web Application)</title>
+</head>
+<body>
+    <h1>Hi! {{ sub }}</h1>
+    <h2> Contents</h2>
+    <table style="width:100%">
+      <tr>
+        <th>ID</th>
+        <th>Title</th> 
+        <th>Detail</th>
+        <th>Owner</th>
+      </tr>
+      {% for content in contents %}
+      <tr>
+        <td>{{ content.id }}</td>
+        <td>{{ content.title }}</td>
+        <td>{{ content.detail }}</td>
+        <td>{{ content.owner }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <p></p>
+    <a href="/contents/create">Go to create your contents</a>
+</body>
+</html>

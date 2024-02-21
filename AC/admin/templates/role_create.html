@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Form</title>
+</head>
+<body>
+    <h1>Input Form</h1>
+    <form action='/role/create/submit' method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="ttl">Time To Live:</label><br>
+        <input type="number" id="ttl" name="ttl"><br><br>
+        <label for="permissions">Permission:</label><br>
+        <input type="radio" id="read" name="permissions" value="READ">
+        <label for="read">Read</label><br>
+        <input type="radio" id="write" name="permissions" value="WRITE">
+        <label for="write">Write</label><br>
+        <input type="radio" id="readwrite" name="permissions" value="READWRITE">
+        <label for="readwrite">Read & Write</label><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

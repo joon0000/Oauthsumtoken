@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resource Owner Password Credentials Client (Web Application)</title>
+</head>
+<body>
+    <h1>Hi! {{sub}}</h1>
+
+    <div id="accessCountdown"></div>
+    <div id="refreshCountdown"></div>
+    <p></p>
+    <a href="/contents">Go to Contents</a>
+    <p></p>
+    <a href="/userinfo">Go to UserInfo</a>
+
+
+    <script>
+        // Get the remaining time from the server for access token
+        var accessRemainingTime = {{ access_token_expiration_time }} * 1000; // Convert seconds to milliseconds
+        var accessCountdownElement = document.getElementById('accessCountdown');
+
+        function updateAccessCountdown() {
+            // Calculate remaining time
+            var hours = Math.floor(accessRemainingTime / (1000 * 60 * 60));
+            var minutes = Math.floor((accessRemainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((accessRemainingTime % (1000 * 60)) / 1000);
+
+            // Display the remaining time
+            accessCountdownElement.innerHTML = 'Access token will expire in ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+
+            // Update remaining time
+            accessRemainingTime -= 1000;
+
+            // If remaining time is over, stop the countdown
+            if (accessRemainingTime < 0) {
+                clearInterval(accessInterval);
+                accessCountdownElement.innerHTML = 'Access token has expired';
+            }
+        }
+
+        // Update access token countdown every second
+        var accessInterval = setInterval(updateAccessCountdown, 1000);
+
+        // Initial call to display access token countdown immediately
+        updateAccessCountdown();
+
+        // Get the remaining time from the server for refresh token
+        var refreshRemainingTime = {{ refresh_token_expiration_time }} * 1000; // Convert seconds to milliseconds
+        var refreshCountdownElement = document.getElementById('refreshCountdown');
+
+        function updateRefreshCountdown() {
+            // Calculate remaining time
+            var hours = Math.floor(refreshRemainingTime / (1000 * 60 * 60));
+            var minutes = Math.floor((refreshRemainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((refreshRemainingTime % (1000 * 60)) / 1000);
+
+            // Display the remaining time
+            refreshCountdownElement.innerHTML = 'Refresh token will expire in ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+
+            // Update remaining time
+            refreshRemainingTime -= 1000;
+
+            // If remaining time is over, stop the countdown
+            if (refreshRemainingTime < 0) {
+                clearInterval(refreshInterval);
+                refreshCountdownElement.innerHTML = 'Refresh token has expired';
+            }
+        }
+
+        // Update refresh token countdown every second
+        var refreshInterval = setInterval(updateRefreshCountdown, 1000);
+
+        // Initial call to display refresh token countdown immediately
+        updateRefreshCountdown();
+    </script>
+</body>
+</html>

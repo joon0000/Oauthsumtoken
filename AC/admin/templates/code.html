@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Information</title>
+    <link rel="stylesheet" type="text/css" href={{ url_for ('static', filename='css/style.css') }}>
+</head>
+<body>
+    <h1>Hi! {{ sub }}</h1>
+    <h2>Codes</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Token</th> 
+            <th>User</th>
+            <th>Role</th>
+            <th>Exp</th>
+            <th>Iat</th>
+        </tr>
+        {% for code in codes %}
+        <tr>
+            <td>{{ code.id }}</td>
+            <td>{{ code.code }}</td>
+            <td>{{ code.user }}</td>
+            <td>{{ code.role }}</td>
+            <td>{{ code.exp }}</td>
+            <td>{{ code.iat }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p></p>
+    <h2>Revoke Code</h2>
+    <form action="/submit" method="delete">
+      <label for="input_id">ID:</label>
+      <input type="text" id="input_id" name="input_id"><br><br>
+      <button type="submit">Submit</button>
+    </form>
+    <p></p>
+    <p></p>
+    <a href="/role">Go to role</a>
+    <p></p>
+    <a href="/code/create">Go to generate code</a>
+    <p></p>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Token</title>
+</head>
+<body>
+    <h1>Create Token</h1>
+    <form action="/code/create/submit" method="POST">
+        <label for="role">Select Role:</label>
+        <select name="role" id="role">
+            {% for role in roles %}
+                <option value="{{ role['name'] }}">{{ role['name'] }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1">
+        <br><br>
+        <input type="submit" value="Create Code">
+    </form>
+</body>
+</html>
