@@ -247,6 +247,8 @@ def submit_role():
   }), 500
   # return data
   
+
+  
 @app.route('/code/create')
 def create_role_token():
   user = user_info.get('sub')
@@ -300,8 +302,29 @@ def test():
   tokens = json.loads(r.text).get('tokens')
 
   return tokens
+  
+@app.route('/code/revoke', methods=['POST'])
+def revoke_code():
+    id = request.form.get('id')
+    access_token = request.cookies.get('access_token')
 
+    # สร้าง URL สำหรับลบบันทึกเข้าถึงโดยใช้ ID ที่ได้รับจากฟอร์ม
+    path = 'http://127.0.0.1:5001/admin/revoke/{}'.format(id)
 
+    # ส่ง HTTP DELETE request ไปยังเซิร์ฟเวอร์
+    r = requests.delete(path, headers={
+                        'Authorization': 'Bearer {}'.format(access_token)})
+
+    # ตรวจสอบสถานะการตอบกลับ
+    if r.status_code == 201:
+        # ในกรณีที่สำเร็จ
+        return r.text
+    else:
+        # ในกรณีที่เกิดข้อผิดพลาด
+        return json.dumps({
+            'error': 'The authorization server returns an error: \n{}'.format(
+                r.text)
+        }), 500
 
 if __name__ == '__main__':
   #context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)

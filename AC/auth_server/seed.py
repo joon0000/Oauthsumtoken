@@ -3,7 +3,7 @@
 import datetime
 import secrets
 import time
-from AC_auth_server import app, db, User, Client, Role, Code
+from AC_auth_server import app, db, User, Client, Role, AccessLog
 
 def generate_role_token(length=32):
     # สร้าง Random String ที่มีความยาวตามที่กำหนด (ค่าเริ่มต้นคือ 32 ตัวอักษร)
@@ -39,9 +39,10 @@ with app.app_context():
     
     role = Role( name = 'admin', ttl=1200, permissions='admin')
     
-    code = Code(        
+    code = AccessLog(        
                   code = generate_role_token(),
-                  exp= time.time() + 1200,
+                  iat= time.time(),
+                  exp= time.time() + 1200000,
                   role_id = 1
                   )
 

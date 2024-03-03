@@ -15,9 +15,6 @@ REDIRECT_URL = 'http://127.0.0.1:5000/callback'
 REFRESH_PATH = 'http://127.0.0.1:5001/auth/refresh'
 CREATE_PATH = 'http://127.0.0.1:5002/content'
 
-res_path = 'http://127.0.0.1:5001/admin'
-
-
 SCOPE = 'openid email phone_number READWRITE'
 scope2 = 'openid email phone_number READ'
 
@@ -165,7 +162,6 @@ def login():
 @app.route('/callback')
 def callback():
   global expire_in
-  # Accepts the authorization code and exchanges it for access token
   authorization_code = request.args.get('authorization_code')
   
   if not authorization_code:
@@ -195,9 +191,7 @@ def callback():
   
   state, id_token = decode_token(id_token)
   if id_token and state:
-      # print(type(id_token))
       user_info.update(id_token)
-      # print(f'userinfo: \n{user_info}')
   else:
     return json.dumps({
       'error': 'ID token is invalid.'
@@ -205,9 +199,6 @@ def callback():
   
   response = make_response(redirect(url_for('main')))
   response.set_cookie('access_token', access_token)
-  # response.set_cookie('id_token',id_token)
-  # response.set_cookie('refresh_token',refresh_token)
-  # print(f'response: {response}')
   refresh_tokens['refresh_token'] = refresh_token
   return response
 

@@ -10,29 +10,32 @@
     <table>
         <tr>
             <th>ID</th>
-            <th>Token</th> 
-            <th>User</th>
+            <th>Code</th>
             <th>Role</th>
-            <th>Exp</th>
+            <th>Scope</th>
+            <th>User</th>
+            <th>Client</th>
             <th>Iat</th>
+            <th>Exp</th>
         </tr>
         {% for code in codes %}
         <tr>
             <td>{{ code.id }}</td>
             <td>{{ code.code }}</td>
-            <td>{{ code.user }}</td>
             <td>{{ code.role }}</td>
-            <td>{{ code.exp }}</td>
+            <td>{{ code.scope }}</td>
+            <td>{{ code.user }}</td>
+            <td>{{ code.client }}</td>
             <td>{{ code.iat }}</td>
+            <td>{{ code.exp }}</td>
         </tr>
         {% endfor %}
     </table>
     <p></p>
     <h2>Revoke Code</h2>
-    <form action="/submit" method="delete">
-      <label for="input_id">ID:</label>
-      <input type="text" id="input_id" name="input_id"><br><br>
-      <button type="submit">Submit</button>
+    <form action="/code/revoke" method="post">
+        <input type="text" id="id" name="id"><br><br>
+        <button type="submit">Delete Access Log</button>
     </form>
     <p></p>
     <p></p>

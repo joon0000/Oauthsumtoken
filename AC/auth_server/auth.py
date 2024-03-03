@@ -12,7 +12,7 @@ KEY = b'YHD1m3rq3K-x6RxT1MtuGzvyLz4EWIJAEkRtBRycDHA='
 
 ISSUER = 'sample-auth-server'
 CODE_LIFE_SPAN = 600
-JWT_LIFE_SPAN_ACCESS_TOKEN = 30
+JWT_LIFE_SPAN_ACCESS_TOKEN = 120
 JWT_LIFE_SPAN_REFRESH_TOKEN = 2000
 
 RESOURCE_PATH = "http://127.0.0.1:5002"
@@ -24,10 +24,10 @@ f = Fernet(KEY)
 with open('private.pem', 'rb') as file:
   private_key = file.read()
 
-def generate_access_token(sub,client_id,scope):
+def generate_access_token(username,client_id,scope):
   payload = {
     "iss": ISSUER,
-    'sub': sub,
+    'sub': username,
     'aud': RESOURCE_PATH,
     'iat': time.time(),    
     "exp": time.time() + JWT_LIFE_SPAN_ACCESS_TOKEN,
@@ -40,7 +40,7 @@ def generate_access_token(sub,client_id,scope):
 def generate_refresh_token(exp):
   payload = {
     "iss": ISSUER,
-    "exp": time.time() + exp
+    "exp": exp
   }
   
   refresh_token = jwt.encode(payload, private_key, algorithm = 'RS256')
