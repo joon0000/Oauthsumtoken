@@ -42,7 +42,7 @@ pipeline {
         stage('Checkmarx') {
             steps {
                 echo 'Checkmarx'
-                checkmarxASTScanner additionalOptions: '', baseAuthUrl: '', branchName: '', checkmarxInstallation: 'cx', credentialsId: '', projectName: 'jenkins-pipeline', serverUrl: '', tenantName: ''
+                checkmarxASTScanner additionalOptions: '--scan-type sast,iac-security,sca', baseAuthUrl: '', branchName: '', checkmarxInstallation: 'cx', credentialsId: '', projectName: 'jenkins-pipeline', serverUrl: '', tenantName: ''
             }
         }
 
